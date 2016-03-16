@@ -2,7 +2,8 @@ export default {
   from: './src',
   to: './dist/app.js',
   ext: 'tag',
-  type: 'babel',
+  // type: 'babel',
+  type: 'coffee',
   template: 'jade',
   style: 'stylus',
   plugins: [

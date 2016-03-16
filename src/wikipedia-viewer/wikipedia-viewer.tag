@@ -11,11 +11,16 @@ wikipedia-viewer
 
 
 search-box
-  input(onchange={search})
+  input(onchange="{search}")
+  button(onclick="{test}") test
 
   script.
 
-    import URI from 'urijs'
-    debugger
+    a = 'test'
+    console.log a
+    @search = () =>
+      console.log 'test'
 
-    search(){}
+
+    @test = () =>
+      console.log 'clicked'
