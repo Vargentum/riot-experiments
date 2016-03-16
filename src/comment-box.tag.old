@@ -1,0 +1,49 @@
+comment-box
+  h1 Comments
+  comment-list(comments="{comments}")
+  comment-form
+
+  script.
+    this.comments = []
+
+    add(comment) {
+      this.comments.push(comment)
+      this.update()
+    }
+
+
+comment-list
+  comment(each="{opts.comments}", 
+          title="{this.title}",
+          message="{this.message}")
+
+  script.
+    console.log(this)
+
+
+comment-form
+  form(onsubmit="{add}")
+    input(type="text", name="name")
+    textarea(name="message")
+    input(type="submit", value="Post")
+
+  script.
+    add(e) {
+      let comment = {
+        title: this.name.value,
+        message: this.message.value
+      }
+      this.parent.add(comment)
+      e.target.reset()
+    }
+
+
+comment
+  div
+    h2 {opts.title}
+    p My {opts.message}
+
+
+//- create a comment
+//- get data from name refernces (bound to this)
+//- fire parent add method
