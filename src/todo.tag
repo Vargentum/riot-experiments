@@ -1,5 +1,5 @@
 todo
-  h2 Simple todo app
+  h2 Observable todo app
   todo-list(todos="{this.todos}")
 
   todo-create
@@ -7,21 +7,21 @@ todo
   script.
     @todos = []
 
-    @add = (todo) =>
+    @.on('add', (todo) => 
       @todos.push(todo)
       @update()
+    )
 
-    @remove = (idx) =>
+    @.on('remove', (idx) => 
       @todos.splice(idx, 1)
       @update()
+    )
 
-    @removeAll = () =>
+    @.on('clear', () =>
       @todos = []
       @update()
+    )
 
-  style.
-    todo
-      width 200px
 
 
 todo-list
@@ -32,27 +32,33 @@ todo-list
   script.
     @remove = (e) =>
       idx = @opts.todos.indexOf(e.item)
-      @parent.remove(idx)
+      @parent.trigger('remove', idx)
+
+
+
 
 todo-item
   p
     | {opts.name}
 
-  style.
-    todo-item
-      border 1px solid red
-      padding 3px 10px
-      display block
+
 
 
 todo-create
   form(onsubmit="{add}")
     input(type="text" name="tname")
     input(type="submit" value="Add Todo")
-    button(onclick="{this.parent.removeAll}") Clear all
+    button(onclick="{clear}") Clear all
 
   script.
+
+    @clear = (e) =>
+      @parent.trigger('clear')
+
     @add = (e) =>
-      @parent.add 
+      @parent.trigger(
+        'add',
         name: e.target.tname.value
+      )
       e.target.reset()
+      
