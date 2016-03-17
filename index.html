@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <title>Riot Simplest</title>
 </head>
+
 <body>
   
-  <todo></todo>
+  <!-- <todo></todo> -->
+  <todo-v2></todo-v2>
 
   <!-- include riot.js only -->
-  <script src="//cdn.jsdelivr.net/riot/2.3/riot.min.js"></script>
+  <script src="//cdn.jsdelivr.net/riot/2.3/riot.js"></script>
   <script src="./dist/app.js"></script>
   <script>
-    riot.mount('*')
+    riot.mount('todo-v2', {todos: [{name: 'predefined'}]})
   </script>
 </body>
 </html>
